@@ -13,4 +13,5 @@ Doel van GenCareAI:
 GenCareAI streeft ernaar om zorgprofessionals te ondersteunen met AI-gestuurde tools die de administratielast kunnen verlagen, terwijl de privacy en veiligheid van patiëntgegevens gewaarborgd blijven.
 
 Samenwerken:
-Wij nodigen ontwikkelaars, datawetenschappers, en zorgprofessionals uit om bij te dragen aan dit project. Samen kunnen we een verschil maken in de toekomst van zorgverlening.
+Ik nodig ontwikkelaars, datawetenschappers, en zorgprofessionals van harte uit om bij te dragen aan dit project. Aangezien mijn expertise niet primair ligt in de technische sfeer, verzoek ik bijdragers om in hun communicatie en documentatie rekening te houden met een breder publiek. Een helder en begrijpelijk taalgebruik, met terughoudendheid in het gebruik van technisch jargon, wordt zeer gewaardeerd. 
+
