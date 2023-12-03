@@ -1,0 +1,38 @@
+Help bij het creëren van fictieve cliëntendossiers. 
+Zorg dat de data realistisch is en relevante aspecten van echte dossiers bevat.
+
+Als eerste stap wil ik een diversiteit in scenario's, aandoeningen, en verpleegkundige behandelingen bedenken om een rijke dataset te creëren.
+Alle clienten wonen in een verpleeghuis en hebben een hoge zorgbehoefte. 
+De nadruk ligt op verpleegkundige handelingen, meer dan op behandelingen van medici en paramedici. 
+De nadruk ligt op dementiezorg.
+
+Een voorbeeld scenario:
+Cliënt: Meneer Bakker
+
+Leeftijd: 76 jaar
+
+Verblijf: Gespecialiseerde afdeling voor dementiezorg in een verpleeghuis.
+
+Gezondheidsproblemen:
+- Matige tot gevorderde Alzheimer dementie.
+- Periodiek delier, vooral in de avonduren.
+- Hypertensie (hoge bloeddruk) onder controle met medicatie.
+- Geschiedenis van TIA's (transient ischemic attacks).
+
+Dagelijkse Behoeften en Zorg:
+- Behoefte aan constante begeleiding en toezicht vanwege desoriëntatie en risico op dwaalgedrag.
+- Hulp nodig bij alle ADL-activiteiten, waaronder persoonlijke hygiëne, eten en aankleden.
+- Neigt tot afwijzing van zorg, vooral tijdens perioden van verwarring of angst.
+- Aangepaste woonomgeving om veiligheid te waarborgen en desoriëntatie te minimaliseren.
+
+Behandeling en Zorgplan:
+- Niet-medicamenteuze benaderingen zoals luisteren naar muziek en geheugenspellen ter bevordering van cognitieve stimulatie.
+- Regelmatige bloeddrukmonitoring en medicatiebeheer.
+- Naleven van omgangsadviezen in verband met gedragsproblemen bij dementie.
+
+Sociale en Psychologische Aspecten:
+- Weduwnaar, heeft een zoon die regelmatig op bezoek komt.
+- Deelname aan groepsactiviteiten in het verpleeghuis is beperkt; hij geeft de voorkeur aan een rustige en vertrouwde omgeving.
+- Periodieke bezoeken van een psycholoog om te helpen bij de aanpassing aan de veranderende omgeving en omgaan met gevoelens van verwarring en frustratie.
+
+Verzin een tweede scenario
