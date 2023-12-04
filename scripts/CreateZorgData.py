@@ -29,31 +29,36 @@ def schrijf_bestand(bestandsnaam, tekst):
     with open(bestandsnaam, 'w') as file:
         file.write(tekst)
 
-def genereer_content(model, s_role_content, u_role_content):
+def genereer_content(model, s_role_content, u_role_content, seed):
     client = OpenAI()
     completion = client.chat.completions.create(
         model=model,
         messages=[
             {"role": "system", "content": s_role_content},
             {"role": "user", "content": u_role_content}
-        ]
+        ],
+        seed=seed
     )
     return completion
 
-def genereer_zorgdata(model, zorgdata, aantal):
+def genereer_zorgdata(model, zorgdata, aantal, seed=None):
     s_role_content = lees_bestand('roles/rol_system_zorgdata_maker.txt')
     u_role_content = lees_bestand(f'roles/rol_user_{zorgdata}.txt')
 
+    if seed is None:
+        seed = random.randint(0, 10000)
+
     zdata = []
     for i in range(aantal):
-        zd = genereer_content(model, s_role_content, u_role_content)
+        zd = genereer_content(model, s_role_content, u_role_content, seed + i)
         zdata.append(zd.choices[0].message.content)
     
     for i, zd in enumerate(zdata, start=1):
-        bestandsnaam = f'zorgdata/{zorgdata}_{model}_{datetime.now().strftime("%Y%m%d%H%M")}_{i}.txt'
+        bestandsnaam = f'zorgdata/{zorgdata}/{model}_{datetime.now().strftime("%Y%m%d%H%M")}_{i}.txt'
         schrijf_bestand(bestandsnaam, zd)
 
 genereer_zorgdata(
     model='gpt-3.5-turbo', 
     zorgdata='ADL', 
-    aantal=1)
+    aantal=30,
+    seed=6)
