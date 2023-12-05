@@ -19,15 +19,8 @@ ToDo:       Overweeg ipv de zorgdata 5x te genereren hetvolgende:
 import openai
 from openai import OpenAI
 from datetime import datetime
-
-def lees_bestand(bestandsnaam):
-    with open(bestandsnaam, 'r') as file:
-        inhoud = file.read()
-    return inhoud
-
-def schrijf_bestand(bestandsnaam, tekst):
-    with open(bestandsnaam, 'w') as file:
-        file.write(tekst)
+from HelperFunctions import lees_bestand, schrijf_bestand
+import random
 
 def genereer_content(model, s_role_content, u_role_content, seed):
     client = OpenAI()
@@ -59,6 +52,6 @@ def genereer_zorgdata(model, zorgdata, aantal, seed=None):
 
 genereer_zorgdata(
     model='gpt-3.5-turbo', 
-    zorgdata='ADL', 
-    aantal=30,
-    seed=6)
+    zorgdata='ADLRapportage', 
+    aantal=1,
+    seed=1)
