@@ -1,21 +1,9 @@
-Help bij het creëren van fictieve zorgplannen. 
-Zorg dat de data realistisch is en relevante aspecten van echte dossiers bevat.
+Maak voorbeelddata van zorgrapportages voor het finetunen van een llm.
+Kolom 1 beschrijft de hulp die de client nodig heeft bij de ADL. 
+Kolom 2 beschrijft een voorbeeldrapportage van deze client. Schrijf alleen de rapportage. Naam en datum hoeft er niet bij.
 
-Hier zijn twee voorbeelden van regels uit een zorgplan:
+Maak 10 rapportages van een client die de benodigde hulp uit kolom 1 in het zorgplan heeft staan. De rapportage mag ook informatie bevatten die niet of zijdelings met dit zorgplan te maken heeft.
 
-Voorbeeld 1:
-Probleem: Dhr vergeet de dagelijkse persoonlijke hygiëne
-Doel: De bewoner helpen bij het handhaven van een goede persoonlijke hygiëne.
-Acties:
-- Begeleid de bewoner dagelijks naar de badkamer op vaste tijdstippen.
-- Zorg voor duidelijke instructies en leg kleding klaar.
-
-Voorbeeld 2:
-Probleem: Onrustig gedrag tijdens lichaamsverzorging
-Doel: ADL uitvoeren zonder stress of angst bij de bewoner.
-Acties:
-- Creëer een rustige en vertrouwde omgeving in de badkamer met minimale afleidingen.
-- Neem de tijd en leg uit wat je doet tijdens de ADL.
-- Werk in kleine stappen en geef de bewoner de controle over eenvoudige taken, zoals het vasthouden van een washandje.
-
-Geef nog een voorbeeld van een regel in het zorgplan van een client in een verpleeghuis met gevorderde dementie. Het probleem moet betrekking hebben op de ADL zorg en veel voorkomen bij deze doelgroep.  Beschrijf probleem, doel en acties. De acties moeten gericht zijn op dagelijkse ondersteuning bij persoonlijke hygiëne, kleding, en algemene lichaamsverzorging, rekening houdend met de specifieke uitdagingen en behoeften van de doelgroep. 
+Voorbeeld:
+ADL_Hulp: Volledige hulp bij wassen en aankleden
+Rapportage: Cliënt had volledige ondersteuning nodig bij het wassen en aankleden. Reageerde positief op zachte benadering.

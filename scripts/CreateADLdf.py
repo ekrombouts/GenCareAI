@@ -2,47 +2,34 @@ import os
 import pandas as pd
 from HelperFunctions import lees_bestand
 
-ADL_voorbeelden = []
+rapportagebestanden = []
 pad = 'zorgdata/ADL/'
 
 for fn in os.listdir(pad):
     ffn = os.path.join(pad, fn)
     if os.path.isfile(ffn):
-        ADL_voorbeelden.append(lees_bestand(ffn))
+      rapportagebestanden.append(lees_bestand(ffn))
 
-voorbeeld = ADL_voorbeelden[0]
-print(voorbeeld)
-delen = voorbeeld.split('\n')
+# rapportage = actie_rapportages[0]
+# print(rapportage)
+# delen = rapportage.split('\n')
 
-# DataFrame voor Probleem en Doel
-probleem_doel_data = {'ID': [], 'Probleem': [], 'Doel': [], 'Opmerking': []}
-acties_data = {'ProbleemDoelID': [], 'Actie': []}
+rap_data = {'ID': [], 'Hulp': [], 'Rapportage': []}
 
-for idx, voorbeeld in enumerate(ADL_voorbeelden):
-    delen = voorbeeld.split('\n')
-    actie_actief = False
-    opmerking = ''
-    for idd, deel in enumerate(delen):
-        if actie_actief:
-            if deel.startswith('-'):
-                acties_data['ProbleemDoelID'].append(idx)
-                acties_data['Actie'].append(deel.replace('-','').strip())
-            else:
-                actie_actief = False
-        elif deel.startswith('Probleem:'):
-            probleem = deel.replace('Probleem:', '').strip()
-        elif deel.startswith('Doel:'):
-            doel = deel.replace('Doel:', '').strip()
-        elif deel.startswith('Acties:'):
-            actie_actief = True
-        else:
-            opmerking = opmerking + deel
-    probleem_doel_data['ID'].append(idx)
-    probleem_doel_data['Probleem'].append(probleem)
-    probleem_doel_data['Doel'].append(doel)
-    probleem_doel_data['Opmerking'].append(opmerking)
+for idx, rapportagebestanden in enumerate(rapportagebestanden):
+    regels = rapportagebestanden.split('\n\n')
+    for idr, regel in enumerate(regels):
+        delen = regel.split('\n')
+        for idd, deel in enumerate(delen):
+            if deel.startswith('ADL_Hulp:'):
+                hulp = deel.replace('ADL_Hulp:', '').strip()
+            elif deel.startswith('Rapportage:'):
+                rapportage = deel.replace('Rapportage:', '').strip()
+        rap_data['ID'].append(idd)
+        rap_data['Hulp'].append(hulp)
+        rap_data['Rapportage'].append(rapportage)
 
-df_probleem_doel = pd.DataFrame(probleem_doel_data)
-df_acties = pd.DataFrame(acties_data)
+df_rapportages = pd.DataFrame(rap_data)
 
-print(df_probleem_doel['Doel'])
+df_rapportages.head(20)
+df_rapportages.shape

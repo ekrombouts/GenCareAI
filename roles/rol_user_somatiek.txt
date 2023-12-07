@@ -1,4 +1,0 @@
-Identificeer de 50 meest voorkomende gezondheidsproblemen op psychogeriatrie afdelingen in verpleeghuizen. Benoem verschillende typen dementie apart. 
-Schat het percentage bewoners dat elk gezondheidsprobleem heeft.
-Rangschik de gezondheidsproblemen in volgorde van meest naar minst voorkomend.
-Presenteer de informatie in tabelvorm.
