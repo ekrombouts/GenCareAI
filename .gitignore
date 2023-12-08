@@ -160,8 +160,8 @@ cython_debug/
 #.idea/
 
 # Vanuit het project toegevoegd
-/scenarios
-/roles/zzz/
+scenarios
+roles/zzz/
 zorgdata/*/
-/playground/
+playground/
 .DS_Store
