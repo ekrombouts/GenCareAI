@@ -6,30 +6,30 @@ rapportagebestanden = []
 pad = 'zorgdata/ADL/'
 
 for fn in os.listdir(pad):
-    ffn = os.path.join(pad, fn)
+    ffn = os.path.join(pad, fn) # volledige bestandsnaam
     if os.path.isfile(ffn):
       rapportagebestanden.append(lees_bestand(ffn))
 
-# rapportage = actie_rapportages[0]
-# print(rapportage)
-# delen = rapportage.split('\n')
-
 rap_data = {'ID': [], 'Hulp': [], 'Rapportage': []}
 
-for idx, rapportagebestanden in enumerate(rapportagebestanden):
-    regels = rapportagebestanden.split('\n\n')
-    for idr, regel in enumerate(regels):
-        delen = regel.split('\n')
-        for idd, deel in enumerate(delen):
-            if deel.startswith('ADL_Hulp:'):
-                hulp = deel.replace('ADL_Hulp:', '').strip()
-            elif deel.startswith('Rapportage:'):
-                rapportage = deel.replace('Rapportage:', '').strip()
-        rap_data['ID'].append(idd)
+# Er zijn meerdere regels in meerdere (10) voorbeelden in meerdere files
+for idx, rapportagebestand in enumerate(rapportagebestanden):
+    voorbeelden = rapportagebestand.split('\n\n')
+    for idv, voorbeeld in enumerate(voorbeelden):
+        regels = voorbeeld.split('\n')
+        for idr, regel in enumerate(regels):
+            if regel.startswith('ADL_Hulp:'):
+                hulp = regel.replace('ADL_Hulp:', '').strip()
+            elif regel.startswith('Rapportage:'):
+                rapportage = regel.replace('Rapportage:', '').strip()
+        rap_data['ID'].append(idv)
         rap_data['Hulp'].append(hulp)
         rap_data['Rapportage'].append(rapportage)
 
-df_rapportages = pd.DataFrame(rap_data)
+df = pd.DataFrame(rap_data)
 
-df_rapportages.head(20)
-df_rapportages.shape
+df.tail(30)
+df.shape
+
+df['prompt'] = df['Rapportage'] + '\n\nWelke hulp heeft deze client nodig bij de ADL?'
+print(df.iloc[1,3])
