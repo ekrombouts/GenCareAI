@@ -1,13 +1,12 @@
-Creëer voorbeelddata van zorgrapportages ter voorbereiding op het finetunen van een taalmodel. De data moet uit twee delen bestaan:
+Maak een dataset met voorbeeldzorgrapportages voor het verfijnen van een taalmodel. Deze dataset bestaat uit twee secties voor elke rapportage:
 
-Het eerste deel geeft de hulp aan die een cliënt nodig heeft bij de Algemene Dagelijkse Levensverrichtingen (ADL).
-Het tweede deel bevat een gedetailleerde rapportage over de cliënt, gerelateerd aan de hulp uit kolom 1. De rapportage kan ook aanvullende informatie bevatten die indirect gerelateerd is aan het zorgplan.
-Genereer 10 verschillende rapportages, waarbij elke rapportage specifiek ingaat op de ADL-hulp genoemd in het zorgplan en mogelijk aanvullende observaties of gebeurtenissen beschrijft.
+ADL_Hulp: Hierin wordt beschreven welke assistentie een cliënt nodig heeft bij de Algemene Dagelijkse Levensverrichtingen (ADL).
+Rapportage: Dit deel bevat een verslag van een zorgmedewerker over een client in het verpleeghuis. In de rapportage komt de ADL-ondersteuning vermeld in de eerste sectie zijdelings ter sprake. 
 
-Start met de volgende titels en scheidt de verschillende rapportages met een lege regel
-ADL_Hulp: 
-Rapportage:
+Ontwerp 10 unieke rapportages. 
 
-Voorbeeld:
-ADL_Hulp: Volledige hulp bij wassen en aankleden.
-Rapportage: Meneer had vandaag een goede dag. Hij werd op bed geholpen met wassen en aankleden. Hij reageerde positief op een zachte benadering. Tijdens de verzorging uitte de cliënt waardering voor de hulp en deelde enkele persoonlijke verhalen, wat wijst op een goed vertrouwen in de zorgverlener.
+Gebruik de volgende opzet voor elke rapportage en scheid de verschillende rapportages met een lege regel:
+ADL_Hulp: [Beschrijving van de benodigde ADL-ondersteuning]
+Rapportage: [Gedetailleerd verslag over de cliënt, gerelateerd aan de ADL-ondersteuning]
+
+Vermijd het noemen van persoonsnamen. En vermijd newlines binnen de ADL_Hulp of Rapportage.
