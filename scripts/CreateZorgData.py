@@ -43,12 +43,13 @@ def genereer_zorgdata(model, s_role_content, u_role_content, write_to, aantal, s
 
 # Roep de functie aan om zorgdata te genereren met het gedefinieerde model
 model = 'gpt-3.5-turbo'
-# model = 'gpt-4'
+model = 'gpt-4'
 genereer_zorgdata(
     model = model, 
-    s_role_content = lees_bestand('roles/rol_system_zorgdata_maker.txt'),
-    u_role_content = lees_bestand('roles/rol_user_ADL.txt'),
-    write_to= f'zorgdata/ADL/',
-    aantal=5)
+    s_role_content = lees_bestand('roles/rol_system.txt'),
+    u_role_content = lees_bestand('roles/rol_user.txt'),
+    write_to= f'zorgdata/scenario/',
+    aantal=10, 
+    seed=1)
 
 pass # Om te voorkomen dat ik twee keer zorgdata genereer
