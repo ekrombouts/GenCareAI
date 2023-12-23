@@ -11,28 +11,16 @@ Het genereren van 24 clientenprofielen met gpt-3.5-turbo kost ongeveer 3 cent.
 # Setup
 pass # Soms pakt ie mijn eerste statement niet...
 from openai import OpenAI
-from datetime import datetime
 import os
 import json
+from GenCareAIFunctions import genereer_zorgdata 
 os.environ["TOKENIZERS_PARALLELISM"] = "false" # Voorkomt een warning
 
 # Parameters
 seed = 6
 aantal_clienten = 24
-
-#Deze functie maakt een verbinding met de OpenAI API en genereert een 'response' gebaseerd op de rollen en inhoud die worden meegegeven (s_role en u_role). De functie maakt gebruik van een specifiek model, en biedt de mogelijkheid om de seed (voor reproduceerbaarheid) en het aantal antwoorden (n) te bepalen.
-def genereer_zorgdata(s_role, u_role, model='gpt-3.5-turbo', seed=None, n=1):
-    client = OpenAI()
-    completion = client.chat.completions.create(
-        model=model,
-        messages=[
-            {"role": "system", "content": s_role},
-            {"role": "user", "content": u_role}
-        ],
-        seed=seed,
-        n=n
-    )
-    return completion
+model = 'gpt-3.5-turbo'
+filename_clienten = 'zorgdata/appelboom_clienten.json'
 
 # Definieer inhoud rollen
 s_role_content = '''
@@ -46,7 +34,7 @@ Geef aan welk type dementie de client heeft. En welke lichamelijke klachten.
 
 # Data generatie: Genereer zorgdata, waarbij de eerder gedefinieerde rollen worden gebruikt. 
 # De naam appelboom verwijst naar een fictieve afdeling. Hier wonen 24 clienten met een vorm van dementie. 
-appelboom = genereer_zorgdata(s_role=s_role_content, u_role=u_role_content, seed=seed, n=aantal_clienten)
+appelboom = genereer_zorgdata(s_role=s_role_content, u_role=u_role_content, model=model, seed=seed, n=aantal_clienten)
 
 # Wijzig formaat naar een dictionary voor opslag als json
 appelboom_clienten = {
@@ -55,5 +43,5 @@ appelboom_clienten = {
 }
 
 # Sla op als json
-with open('zorgdata/appelboom_clienten.json', 'w') as file:
+with open(filename_clienten, 'w') as file:
     json.dump(appelboom_clienten, file)
