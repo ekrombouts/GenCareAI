@@ -1,21 +1,2 @@
-Schrijf een profiel van een verpleeghuiscliënt X met een hoge zorgbehoefte. Het profiel bevat gezondheidsproblemen, zorgbehoefte en sociale en psychologische aspecten. 
-De client heeft in ieder geval een vorm van dementie. 
-
-Een voorbeeld profiel:
-Gezondheidsproblemen:
-- Gevorderde Alzheimer dementie.
-- Hoog risico delier.
-- Hypertensie, onder controle met medicatie.
-- Geschiedenis van TIA's.
-
-Zorgbehoefte:
-- Volledig ADL afhankelijk.
-- Incontinent van urine en ontlasting.
-- Slikklachten
-
-Sociale en Psychologische Aspecten:
-- Weduwnaar, heeft een zoon die regelmatig op bezoek komt.
-- Deelname aan groepsactiviteiten in het verpleeghuis is beperkt; hij geeft de voorkeur aan een rustige en vertrouwde omgeving.
-
-Verzin een ander scenario
-Hou je antwoord beknopt en geef geen verdere toelichting
+Schrijf een profiel van een verpleeghuiscliënt. Wees creatief met de naam.
+Geef aan welk type dementie de client heeft. En welke lichamelijke klachten. 
