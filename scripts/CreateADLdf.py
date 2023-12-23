@@ -10,7 +10,7 @@ for fn in os.listdir(pad):
     if os.path.isfile(ffn):
       rapportagebestanden.append(lees_bestand(ffn))
 
-rap_data = {'ID': [], 'Hulp': [], 'Rapportage': []}
+rap_data = {'ID': [], 'hulp': [], 'rapportage': []}
 
 # Er zijn meerdere regels in meerdere (10) voorbeelden in meerdere files
 for idx, rapportagebestand in enumerate(rapportagebestanden):
@@ -23,13 +23,16 @@ for idx, rapportagebestand in enumerate(rapportagebestanden):
             elif regel.startswith('Rapportage:'):
                 rapportage = regel.replace('Rapportage:', '').strip()
         rap_data['ID'].append(idv)
-        rap_data['Hulp'].append(hulp)
-        rap_data['Rapportage'].append(rapportage)
+        rap_data['hulp'].append(hulp)
+        rap_data['rapportage'].append(rapportage)
 
 df = pd.DataFrame(rap_data)
 
 df.tail(30)
 df.shape
 
-df['prompt'] = df['Rapportage'] + '\n\nWelke hulp heeft deze client nodig bij de ADL?'
-print(df.iloc[1,3])
+df['prompt'] = df['rapportage'] + '\n\nWelke hulp heeft deze client nodig bij de ADL?'
+print(df.loc[1,'prompt'])
+
+df.to_csv('zorgdata/gen_data.csv')
+pass
