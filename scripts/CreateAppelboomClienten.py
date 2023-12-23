@@ -10,7 +10,6 @@ Het genereren van 24 clientenprofielen met gpt-3.5-turbo kost ongeveer 3 cent.
 
 # Setup
 pass # Soms pakt ie mijn eerste statement niet...
-from openai import OpenAI
 import os
 import json
 from GenCareAIFunctions import genereer_zorgdata 

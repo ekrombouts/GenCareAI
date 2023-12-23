@@ -1,3 +1,5 @@
+from openai import OpenAI
+
 def lees_bestand(bestandsnaam):
     with open(bestandsnaam, 'r') as file:
         inhoud = file.read()

@@ -9,7 +9,6 @@ Voor 10 weken rapportages van 24 clienten betaal je 40 cent met 3.5 turbo.
 '''
 
 pass # Soms pakt ie mijn eerste statement niet...
-from openai import OpenAI
 import os
 import json
 import time
@@ -75,9 +74,11 @@ for ct in appelboom_clienten['clienten']:
     client_rapportages['Profiel'] = ct['profiel']
     # Voeg de rapportage dictionary voor deze cliënt toe aan de hoofddictionary
     appelboom_rapportages[client_id] = client_rapportages
-    print (f"Verstreken tijd: {time.time()-start} seconden")
+    print (f"Verstreken tijd: {round(time.time()-start)} seconden")
 
 # Nu bevat appelboom_rapportages de rapportages voor elke week voor elke cliënt
 # Sla op als json
 with open(filename_rapportages, 'w') as file:
     json.dump(appelboom_rapportages, file)
+
+pass
