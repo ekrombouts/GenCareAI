@@ -5,7 +5,7 @@ Project:    GenCareAI
 Doel:       Dit script genereert fictieve zorgdata met behulp van de OpenAI API.
 
 Let op. Het instellen van een OpenAI API key is vereist (https://platform.openai.com/docs/quickstart?context=python)
-Voor 10 weken rapportages van 24 clienten betaal je 40 cent met 3.5 turbo.
+Voor 10 weken rapportages van 24 clienten betaal je 70 cent met 3.5 turbo.
 '''
 
 pass # Soms pakt ie mijn eerste statement niet...

@@ -44,3 +44,5 @@ appelboom_clienten = {
 # Sla op als json
 with open(filename_clienten, 'w') as file:
     json.dump(appelboom_clienten, file)
+
+pass # Voorkomt foutief draaien van vorig statement
