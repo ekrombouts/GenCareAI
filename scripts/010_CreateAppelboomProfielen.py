@@ -19,7 +19,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false" # Voorkomt een warning
 seed = 6
 aantal_clienten = 24
 model = 'gpt-3.5-turbo'
-filename_clienten = 'zorgdata/appelboom_clienten.json'
+filename_clienten = 'zorgdata/appelboom_profielen.json'
 
 # Definieer inhoud rollen
 s_role_content = '''
@@ -36,13 +36,13 @@ Geef aan welk type dementie de client heeft. En welke lichamelijke klachten.
 appelboom = genereer_zorgdata(s_role=s_role_content, u_role=u_role_content, model=model, seed=seed, n=aantal_clienten)
 
 # Wijzig formaat naar een dictionary voor opslag als json
-appelboom_clienten = {
+appelboom_profielen = {
     "model": appelboom.model,
     "clienten": [{"profiel": choice.message.content} for choice in appelboom.choices],
 }
 
 # Sla op als json
 with open(filename_clienten, 'w') as file:
-    json.dump(appelboom_clienten, file)
+    json.dump(appelboom_profielen, file)
 
 pass # Voorkomt foutief draaien van vorig statement

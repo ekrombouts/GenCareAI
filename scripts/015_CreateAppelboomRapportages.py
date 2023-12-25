@@ -19,12 +19,12 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false" # Voorkomt een warning
 seed = 6
 num_weeks = 10
 model = 'gpt-3.5-turbo'
-filename_clienten = 'zorgdata/appelboom_clienten.json'
+filename_clienten = 'zorgdata/appelboom_profielen.json'
 filename_rapportages = 'zorgdata/appelboom_rapportages.json'
 
 # Lees de clientendata in
 with open(filename_clienten, 'r') as file:
-    appelboom_clienten = json.load(file)
+    appelboom_profielen = json.load(file)
 
 # Definieer inhoud rollen
 s_role_content = '''
@@ -46,13 +46,13 @@ De rapportages moeten afwisselend geschreven worden door een helpende (20% kans)
 '''
 
 # Print een lijstje van de clienten. Daarmee kan de voortgang worden bijgehouden
-for ct in appelboom_clienten['clienten']:
+for ct in appelboom_profielen['clienten']:
     print(ct['profiel'].split('\n')[0])
 
 # Maak een lege dictionary aan voor alle cliënten
 appelboom_rapportages = {}
 
-for ct in appelboom_clienten['clienten']:
+for ct in appelboom_profielen['clienten']:
     start = time.time()
     client_id = ct['profiel'].split('\n')[0] # Op de eerste regel staat de naam
     print (client_id) # Print om voortgang bij te houden
