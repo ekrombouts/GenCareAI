@@ -5,7 +5,7 @@ Welkom bij de GenCareAI repository. Dit project is gericht op het ontwikkelen va
 
 Kernpunten van het Project:
 
-Fictieve Datacreatie: We gebruiken OpenAI 3.5 om een realistische, maar fictieve dataset van cliëntendossiers te genereren. Deze benadering waarborgt de privacy en ethiek rondom gevoelige patiëntgegevens.  
+Fictieve Datacreatie: We gebruiken OpenAI om een realistische, maar fictieve dataset van cliëntendossiers te genereren. Deze benadering waarborgt de privacy en ethiek rondom gevoelige patiëntgegevens.  
 Open Source LLM Finetuning: De fictieve dataset wordt gebruikt om een open-source Large Language Model (LLM) te finetunen. Dit proces optimaliseert het model voor specifieke taken in de zorgsector.  
 Toepassing op Echte Data: Na finetuning met fictieve data, kan het model lokaal worden aangepast met echte cliëntgegevens voor nauwkeurige en gepersonaliseerde zorgplannen.
 
