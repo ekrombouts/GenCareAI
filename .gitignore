@@ -162,3 +162,4 @@ cython_debug/
 # Vanuit het project toegevoegd
 zorgdata/
 .DS_Store
+scripts/playground/
