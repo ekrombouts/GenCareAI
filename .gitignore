@@ -163,3 +163,5 @@ cython_debug/
 zorgdata/
 .DS_Store
 scripts/playground/
+scripts/output/
+scripts/report.html
