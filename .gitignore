@@ -164,4 +164,7 @@ zorgdata/
 .DS_Store
 scripts/playground/
 scripts/output/
+scripts/results/
+scripts/logs/
 scripts/report.html
+models/
