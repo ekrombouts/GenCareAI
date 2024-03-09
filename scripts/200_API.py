@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Load your trained BERT model
-model_path = 'models/bert_classification' 
+model_path = '../models/bert_classification' 
 
 # Load the finetuned Bert model
 model = BertForSequenceClassification.from_pretrained(model_path)
