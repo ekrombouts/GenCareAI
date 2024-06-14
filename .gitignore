@@ -165,10 +165,4 @@ cython_debug/
 # Project stuff
 data/
 .DS_Store
-scripts/playground/
-scripts/output/
-scripts/results/
-scripts/logs/
-scripts/report.html
-models/
-scripts/Stella/
+scripts/000_Scratchpad.ipynb
