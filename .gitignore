@@ -164,5 +164,8 @@ cython_debug/
 
 # Project stuff
 data/
+model/
 .DS_Store
 scripts/000_Scratchpad.ipynb
+scripts/900_Functions.ipynb
+scripts/200_Annotate.ipynb
