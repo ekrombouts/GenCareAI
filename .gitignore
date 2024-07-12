@@ -169,3 +169,4 @@ zzz/
 my_stuff/
 .DS_Store
 scripts/200_Annotate.ipynb
+scripts/200_ModelSelection.ipynb
