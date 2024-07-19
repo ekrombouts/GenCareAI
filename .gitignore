@@ -169,3 +169,6 @@ zzz/
 my_stuff/
 .DS_Store
 scripts/900_*
+logs/
+models/
+results/
