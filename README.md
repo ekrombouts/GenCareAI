@@ -4,7 +4,7 @@ An initiative to develop AI-driven nursing home care plans using fictional clien
 Welcome to the GenCareAI repository. 
 This project is an initial step in exploring how NLP techniques can be used to automate the creation of care plans in nursing homes.
 
-**Author:** Eva Rombouts
+**Author:** [Eva Rombouts](https://www.doktereva.nl)
 
 ## Project overview
 **Fictitious Data Creation:** We use OpenAI to create a realistic, yet entirely fictional, dataset of client records. This protects the privacy and upholds the ethical handling of sensitive patient data.
