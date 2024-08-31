@@ -6,8 +6,6 @@ This project is an initial step in exploring how NLP techniques can be used to a
 
 **Author:** [Eva Rombouts](https://www.doktereva.nl)
 
-To cite this work: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13371365.svg)](https://doi.org/10.5281/zenodo.13371365)
-
 ## Project overview
 **Fictitious Data Creation:** We use OpenAI to create a realistic, yet entirely fictional, dataset of client records. This protects the privacy and upholds the ethical handling of sensitive patient data.
 
