@@ -8,9 +8,11 @@ class GenCareAISetup:
 
     def __init__(self):
         """
-        Initialize the GenCareAISetup class by detecting the current environment.
+        Initialize the GenCareAISetup class by detecting the current environment,
+        attempting to mount Google Drive if in Colab, and setting the base directory.
         """
         self.environment = self.detect_environment()
+        self.mount_drive_if_colab()
         self.base_dir = self.set_base_dir()
 
     def detect_environment(self):
@@ -26,6 +28,18 @@ class GenCareAISetup:
         except ImportError:
             return "Local"
 
+    def mount_drive_if_colab(self):
+        """
+        Attempt to mount Google Drive if running in Colab.
+        """
+        if self.environment == "Colab":
+            try:
+                from google.colab import drive
+                drive.mount('/content/drive')
+                print("Google Drive mounted.")
+            except Exception as e:
+                print("Google Drive could not be mounted. Continuing without drive access.")
+
     def set_base_dir(self):
         """
         Set the base directory depending on the environment.
@@ -34,6 +48,7 @@ class GenCareAISetup:
             str: The base directory path to be used for file operations.
         """
         if self.environment == "Colab":
+            self.mount_drive_if_colab()
             return '/content/drive/My Drive/Colab Notebooks/GenCareAI/scripts'
         else:
             return os.getcwd()
@@ -49,15 +64,6 @@ class GenCareAISetup:
             str: The full file path.
         """
         return os.path.join(self.base_dir, relative_path)
-
-    def mount_drive(self):
-        """
-        Mount Google Drive if running in Colab.
-        """
-        if self.environment == "Colab":
-            from google.colab import drive
-            drive.mount('/content/drive')
-            print("Google Drive mounted.")
 
     def get_openai_key(self, key_name='GCI_OPENAI_API_KEY'):
         """
