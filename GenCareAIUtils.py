@@ -12,7 +12,6 @@ class GenCareAISetup:
         attempting to mount Google Drive if in Colab, and setting the base directory.
         """
         self.environment = self.detect_environment()
-        self.mount_drive_if_colab()
         self.base_dir = self.set_base_dir()
 
     def detect_environment(self):
