@@ -25,28 +25,6 @@ class GenCareAISetup:
         except ImportError:
             return "Local Environment"
 
-    def install_dependencies(self, colab_packages=None, local_packages=None):
-        """
-        Install necessary dependencies based on the current environment.
-
-        Args:
-            colab_packages (list, optional): A list of packages to install if running in Google Colab.
-            local_packages (list, optional): A list of packages to install if running in a local environment.
-
-        Example:
-            setup.install_dependencies(colab_packages=['langchain', 'chromadb'], local_packages=['plotly', 'dotenv'])
-        """
-        if self.environment == "Google Colab":
-            if colab_packages:
-                print("Installing dependencies for Google Colab...")
-                for package in colab_packages:
-                    !pip install -q {package}
-        else:
-            if local_packages:
-                print("Installing dependencies for Local Environment...")
-                for package in local_packages:
-                    !pip install -q {package}
-
     def setup_environment(self, load_openai_keys=True, load_hf_token=True, colab_dir=None, mount_drive=False, openai_key_name='GCI_OPENAI_API_KEY', hf_token_name='HF_TOKEN'):
         """
         Set up the environment by loading necessary API keys and setting the directory.
