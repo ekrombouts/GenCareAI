@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 
 # Utility functions for GenCareAI notebooks
 # Author: Eva Rombouts
@@ -31,6 +30,7 @@ def setup_environment(load_openai_keys=True, load_hf_token=True, colab_dir=None,
     env = check_environment()
 
     if env == "Google Colab":
+        from google.colab import userdata
         print("Running in Google Colab")
         if mount_drive:
             from google.colab import drive
@@ -39,7 +39,6 @@ def setup_environment(load_openai_keys=True, load_hf_token=True, colab_dir=None,
                 os.chdir(colab_dir)
 
         if load_openai_keys:
-            from google.colab import userdata
             openai_api_key = userdata.get(openai_key_name)
         else:
             openai_api_key = None
@@ -50,6 +49,7 @@ def setup_environment(load_openai_keys=True, load_hf_token=True, colab_dir=None,
             hf_token = None
 
     else:
+        from dotenv import load_dotenv
         print("Running in Local Environment")
         openai_api_key, hf_token = None, None
         if load_openai_keys or load_hf_token:
