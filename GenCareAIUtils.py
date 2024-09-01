@@ -39,19 +39,30 @@ class GenCareAISetup:
             except Exception as e:
                 print("Google Drive could not be mounted. Continuing without drive access.")
 
-    def set_base_dir(self):
+    def set_base_dir(self, colab_dir='/content/drive/My Drive/Colab Notebooks/GenCareAI', local_dir='GenCareAI'):
         """
         Set the base directory depending on the environment.
+
+        Args:
+            colab_dir (str, optional): The base directory path to be used in Colab. Defaults to a typical Colab-specific path.
+            local_dir (str, optional): The base directory path to be used locally. Defaults to 'GenCareAI'.
 
         Returns:
             str: The base directory path to be used for file operations.
         """
         if self.environment == "Colab":
             self.mount_drive_if_colab()
-            return '/content/drive/My Drive/Colab Notebooks/GenCareAI/scripts'
+            return colab_dir
         else:
-            return os.getcwd()
-
+            current_path = os.getcwd()
+            if local_dir in current_path:
+                # Assuming the base_dir is a parent folder that contains "local_dir"
+                base_dir = current_path.split(local_dir)[0] + local_dir
+                return base_dir
+            else:
+                # If not found, assume the current directory is the base_dir
+                return current_path
+            
     def get_file_path(self, relative_path):
         """
         Get the full file path based on the environment and the base directory.
