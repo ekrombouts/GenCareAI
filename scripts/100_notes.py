@@ -1,30 +1,27 @@
-"""
-Author: Eva Rombouts
-Date: 2024-09-23
-
-Description:
-"""
-
 from langchain.prompts import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from langchain_openai import ChatOpenAI
+from langchain_community.callbacks import get_openai_callback
 from pydantic import BaseModel, Field
-
-# from langchain_core.pydantic_v1 import BaseModel, Field
 from typing import List
+import pandas as pd
 
-# Constants & variables
-num_completions = 2
+# Set the number of completions and specify the language model
+num_completions = 100
 llm_model = "gpt-4o-mini-2024-07-18"
 
 
+# Define a Pydantic model for the note structure
 class Note(BaseModel):
     note: List[str] = Field(description="rapportage tekst")
 
 
+# Initialize the output parser using the Pydantic model
 output_parser = PydanticOutputParser(pydantic_object=Note)
+# Get format instructions for the LLM to output data compatible with the parser
 format_instructions = output_parser.get_format_instructions()
 
+# Define the prompt template with placeholders for variables
 template = """
 Dit zijn voorbeelden van rapportages over {category}:
 
@@ -37,14 +34,20 @@ Verzin 10 van zulke rapportages. Varieer met de zinsopbouw en stijl.
 {format_instructions}
 """
 
+# Create a PromptTemplate instance, injecting format instructions as a partial variable
 prompt_template = PromptTemplate(
     input_variables=["category", "examples", "note_topics"],
     template=template,
     partial_variables={"format_instructions": format_instructions},
 )
 
+# Initialize the language model with specified parameters
 llm = ChatOpenAI(model=llm_model, temperature=1.1, n=num_completions)
 
+# Create a chain for generating responses
+chain = prompt_template | llm | output_parser
+
+# List of dictionaries containing input data for each category
 input_data_list = [
     {
         "category": "ADL (Activiteiten van het Dagelijks Leven)",
@@ -135,20 +138,46 @@ input_data_list = [
     },
 ]
 
-# response = llm.generate([[prompt]])
-
-# print(response.generations[0][0].text)
-
-# Resultatenlijst om rapporten op te slaan
 results = []
 
-# Loop over de input data en genereer rapporten
-for input_data in input_data_list:
-    # Maak de prompt met de input_data
-    prompt = prompt_template.format(**input_data)
+with get_openai_callback() as cb:
+    # Loop over the input data and generate reports
+    for input_data in input_data_list:
+        try:
+            # Generate the response from the chain
+            response = chain.invoke(input_data)
 
-    # Genereer de respons van het LLM
-    response = llm.generate([[prompt]])
-    results.append(response)
+            # Append the category and response text to the results list
+            results.append({"category": input_data["category"], "response": response})
+        except Exception as e:
+            print(
+                f"Error in generating response for category {input_data['category']}: {e}. Retrying"
+            )
+            try:
+                response = chain.invoke(input_data)
+                print("Retry successful")
+                results.append(
+                    {"category": input_data["category"], "response": response}
+                )
+            except Exception as e:
+                print(f"Error in retry: {e}")
+print(cb)
 
-print((results[1]).generations[0][0].text)
+# Initialize a list to hold individual notes with their categories
+data = []
+
+# Loop over the results and directly append them to the data list
+for result in results:
+    category = result["category"]
+    parsed_notes = result["response"].note  # Already parsed by the chain
+    for note in parsed_notes:
+        data.append({"category": category, "note": note})
+
+# Create a pandas DataFrame from the list of notes
+df = pd.DataFrame(data)
+
+# Save the DataFrame to a CSV file
+df.to_csv("data/notes.csv", index=False)
+
+# Print the DataFrame for checking
+print(df)
