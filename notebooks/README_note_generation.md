@@ -14,6 +14,16 @@ This subdirectory contains a series of notebooks designed to generate, process, 
     - Input: None directly; uses the GPT-3.5 model for generation; environment variables for API keys and data paths.
     - Output: A CSV file containing categorized synthetic care notes.
 
+- __102_RAGIndexing.ipynb__
+	- Purpose: Processes the anonymous notes generated earlier, stores them in a Chroma vector database, and enables retrieval of relevant examples for few-shot inference in generating synthetic client records.
+	- Input: Anonymous care notes from the previous generation step, stored in Hugging Face datasets; environment variables for API keys and data paths.
+	- Output: A populated Chroma vector database that can be queried to retrieve contextually relevant examples for use in generating new care notes.
+
+- __104_VisualiseVectorDB.ipynb__
+    - Purpose: Retrieves embeddings and metadata from the Chroma vector database, reduces their dimensionality using t-SNE, and visualizes the results in an interactive Plotly plot.
+	- Input: Embeddings and metadata stored in the Chroma vector database (anonymous_notes collection).
+	- Output: An interactive t-SNE scatter plot visualizing the relationships between the embedded documents, with hover details for metadata and document content.
+
 - __110_GenerateClientProfiles.ipynb__
     - Purpose: Generates synthetic client profiles for a psychogeriatric ward using the OpenAI GPT-4 model. Profiles include names, types of dementia, physical complaints, and other relevant attributes.
 	- Input: None directly; uses internal logic and the GPT-4 model for generation.
@@ -23,16 +33,6 @@ This subdirectory contains a series of notebooks designed to generate, process, 
 	- Purpose: Generates scenarios based on the client profiles created in 110_GenerateClientProfiles.ipynb. Scenarios describe the progression of a client’s condition over several months.
 	- Input: Client profiles generated in the previous step.
 	- Output: A CSV file containing the generated scenarios.
-
-- __130_RAGIndexing.ipynb__
-	- Purpose: Processes the anonymous notes generated earlier, stores them in a Chroma vector database, and enables retrieval of relevant examples for few-shot inference in generating synthetic client records.
-	- Input: Anonymous care notes from the previous generation step, stored in Hugging Face datasets; environment variables for API keys and data paths.
-	- Output: A populated Chroma vector database that can be queried to retrieve contextually relevant examples for use in generating new care notes.
-
-- __132_VisualiseVectorDB.ipynb__
-    - Purpose: Retrieves embeddings and metadata from the Chroma vector database, reduces their dimensionality using t-SNE, and visualizes the results in an interactive Plotly plot.
-	- Input: Embeddings and metadata stored in the Chroma vector database (anonymous_notes collection).
-	- Output: An interactive t-SNE scatter plot visualizing the relationships between the embedded documents, with hover details for metadata and document content.
 
 - __140_GenerateClientRecords.ipynb__
     - Purpose: Generates synthetic care notes and summaries for clients in a psychogeriatric ward using the OpenAI GPT-3.5-turbo model. The notes are based on the client profiles and scenarios generated above.
