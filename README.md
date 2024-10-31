@@ -11,7 +11,7 @@ This project is an initial step in exploring how NLP techniques can be used to a
 
 **LLM Finetuning:** The fictional dataset will be utilized to finetune an open-source Large Language Model (LLM). This process aims to customize the model for enhanced performance on specific tasks within the healthcare sector.
 
-**Future Application to Real Data:** After the initial finetuning with fictitious data, we plan to adapt the model locally with actual client data, aiming to produce precise and personalized care plans.
+**Future Application to Real Data:** After the initial finetuning with fictitious data, we plan to adapt the model locally with actual client data, aiming to produce personalized care plans.
 
 ## Goal of GenCareAI
 GenCareAI aims to assist healthcare professionals in nursing homes by creating AI-driven tools that help reduce administrative tasks while maintaining the privacy and security of patient data.
