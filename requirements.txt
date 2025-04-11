@@ -1,0 +1,12 @@
+numpy==2.0
+dotenv
+pandas
+
+anthropic
+openai
+
+pydantic_settings
+
+pydantic
+pydantic_settings
+instructor
