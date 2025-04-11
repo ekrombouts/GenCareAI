@@ -9,23 +9,8 @@ from llm.llm_factory import LLMFactory
 
 datapath = Path(__file__).resolve().parents[1] / "data"
 
-# Create a pandas DataFrame with metadata for different LLM configurations
-df_metadata = pd.DataFrame(
-    {
-        "llm_provider": [
-            "azureopenai",
-            "azureopenai",
-            "anthropic",
-            "llama",
-        ],
-        "llm_model": [
-            "gpt-4o-mini",
-            "gpt-4o",
-            "claude-3-5-sonnet-20240620",
-            "phi4",
-        ],
-    }
-)
+# Load llm metadata
+df_metadata = pd.read_csv(datapath / "llm_metadata.csv")
 
 
 # Define a Pydantic model for a single client profile
@@ -100,6 +85,8 @@ for _, row in df_metadata.iterrows():
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         output_path = datapath / f"client_profiles_{model}_{timestamp}.csv"
 
+        # Add a unique client ID to each profile
+        df_profiles.insert(0, "client_id", range(1, len(df_profiles) + 1))
         # Save the DataFrame to a CSV file
         df_profiles.to_csv(output_path, index=False)
     except Exception as e:
