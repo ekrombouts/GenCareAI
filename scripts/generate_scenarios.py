@@ -1,62 +1,22 @@
 import os
-import random
 from datetime import datetime
 from pathlib import Path
-from typing import List
 
-import numpy as np
 import pandas as pd
-from pydantic import BaseModel, Field
+from jinja2 import Environment, FileSystemLoader
 from tqdm import tqdm
 
 from llm.llm_factory import LLMFactory
+from prompts.generate_scenarios_rm import ClientScenarios
 
 datapath = Path(__file__).resolve().parents[1] / "data"
+prompts_path = Path("prompts")
 
+# Load metadata for LLMs (providers and models)
 df_llm_metadata = pd.read_csv(datapath / "llm_metadata.csv")
-df_llm_metadata = df_llm_metadata.iloc[[3]]
-
-temp = 0.9
-duration = 20
-duration_sd = 6
-num_complications_min = 1
-num_complications_max = 3
 
 
-complications_library = [
-    "gewichtsverlies",
-    "algehele achteruitgang",
-    "decubitus",
-    "urineweginfectie",
-    "pneumonie",
-    "delier",
-    "verergering van onderliggende lichamelijke klachten",
-    "verbetering van de klachten",
-    "overlijden",
-    "valpartij",
-]
-
-
-class ClientScenario(BaseModel):
-    week: int = Field(description="Weeknummer")
-    events_description: str = Field(
-        description="Beschrijving van de gebeurtenissen en zorg"
-    )
-
-
-class ClientScenarios(BaseModel):
-    scenario: List[ClientScenario]
-
-
-def determine_duration(mean=12, std_dev=4):
-    return int(np.round(np.random.normal(mean, std_dev)))
-
-
-def sample_complications(complications_library, min_n=1, max_n=3):
-    num = random.randint(min_n, max_n)
-    return ", ".join(random.sample(complications_library, num))
-
-
+# Function to format client profile into a string
 def format_client_profile(row: pd.Series) -> str:
     return (
         f"Naam: {row['naam']}\n"
@@ -68,90 +28,89 @@ def format_client_profile(row: pd.Series) -> str:
     )
 
 
-system_prompt = (
-    "Je bent een behulpzame assistent, die synthetische zorgscenario's genereert."
-)
+# Load the Jinja2 templates for prompts
+env = Environment(loader=FileSystemLoader(prompts_path))
+s_template = env.get_template("generate_scenarios_s.jinja")
+system_prompt = s_template.render()  # Render the system prompt template
+u_template = env.get_template("generate_scenarios_u.jinja")  # User prompt template
 
-prompt_template = """
-Dit is het profiel van een fictieve client in het verpleeghuis:
----
-{client_profile}
----
-
-Maak een week-tot-week tijdlijn voor een periode van {num_weeks} weken, en beschrijf hierin beloop van zijn/haar verblijf in het verpleeghuis.
-Verwerk de volgende complicatie(s) hierin: {complications}.
-
-Instructies:
-- Formuleer elke scenarioregel zodanig dat deze duidelijk en begrijpelijk is voor een taalmodel.
-- Beperk dramatische veranderingen en focus op subtiele ontwikkelingen.
-- Vermijd het noemen van de naam van de client.
-"""
-
+# Iterate over each LLM metadata row
 for _, llm_details in df_llm_metadata.iterrows():
-    llm_provider = llm_details["llm_provider"]
-    model_name = llm_details["llm_model"]
+    llm_provider = llm_details["llm_provider"]  # Extract LLM provider
+    model_name = llm_details["llm_model"]  # Extract model name
 
+    # Load client profiles for the specific model
     fn_profiles = datapath / f"client_profiles_{model_name}.csv"
     df = pd.read_csv(fn_profiles)
 
+    # Generate a timestamp for the output file
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     fn_scenarios = datapath / f"client_scenarios_{model_name}_{timestamp}.csv"
 
+    # Check if the scenarios file already exists
     if not os.path.exists(fn_scenarios):
-        scenario_list = []
-        factory = LLMFactory(provider=llm_provider)
+        scenario_list = []  # Initialize list to store scenarios
+        factory = LLMFactory(provider=llm_provider)  # Create LLM factory instance
 
+        # Iterate over each client profile
         for _, row in tqdm(
             df.iterrows(),
             total=df.shape[0],
             desc=f"Generating Scenario's for {model_name}",
         ):
+            # Format client profile and extract details
             profile = format_client_profile(row)
-            num_weeks = determine_duration(mean=duration, std_dev=duration_sd)
-            complications = sample_complications(
-                complications_library, num_complications_min, num_complications_max
+            num_weeks = row["duration"]
+            complications = row["complications"]
+            start_date = pd.to_datetime(row["start_date"])
+
+            # Render the user prompt using the template
+            user_prompt = u_template.render(
+                client_profile=profile,
+                num_weeks=num_weeks,
+                complications=complications,
             )
 
-            user_prompt = prompt_template.format(
-                client_profile=profile, num_weeks=num_weeks, complications=complications
-            )
-
+            # Prepare messages for the LLM
             messages = [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ]
 
+            # Generate completion using the LLM
             response_model, _ = factory.create_completion(
                 response_model=ClientScenarios,
                 messages=messages,
                 model=model_name,
-                temperature=temp,
             )
 
+            # Process the response and append scenarios to the list
             for scenario in response_model.scenario:
                 scenario_list.append(
                     (
                         row["client_id"],
                         scenario.week,
+                        start_date + pd.Timedelta(weeks=scenario.week),
                         scenario.events_description,
-                        complications,
-                        num_weeks,
                     )
                 )
 
+        # Create a DataFrame from the scenario list
         df_scenarios = pd.DataFrame(
             scenario_list,
             columns=[
                 "client_id",
                 "week",
+                "date_start_of_week",
                 "events_description",
-                "complications",
-                "num_weeks",
             ],
         )
+        # Add a scenario ID column
         df_scenarios.insert(0, "scenario_id", range(1, len(df_scenarios) + 1))
+        # Save the scenarios to a CSV file
         df_scenarios.to_csv(fn_scenarios, index=False)
         print(f"Data saved to {fn_scenarios}.")
     else:
+        # If the file exists, load the data
         print("Scenario file found. Loading data...")
         df_scenarios = pd.read_csv(fn_scenarios)
