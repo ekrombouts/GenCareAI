@@ -14,7 +14,7 @@ Configuration for LLM providers.
 class LLMProviderSettings(BaseSettings):
     """Base settings for LLM providers."""
 
-    temperature: float = 0.0
+    temperature: float = 0.9
     max_tokens: Optional[int] = None
     max_retries: int = 3
 
@@ -42,15 +42,14 @@ class AnthropicSettings(LLMProviderSettings):
 
     api_key: str = os.getenv("ANTHROPIC_API_KEY")
     default_model: str = "claude-3-5-sonnet-20240620"
-    # default_model: str = "claude-3-5-haiku-20241022"
     max_tokens: int = 4096
 
 
-class LlamaSettings(LLMProviderSettings):
+class OllamaSettings(LLMProviderSettings):
     """Settings for Llama."""
 
     api_key: str = "key"  # required, but not used
-    default_model: str = "llama3"
+    default_model: str = "phi4"
     base_url: str = "http://localhost:11434/v1"
 
 
@@ -60,4 +59,4 @@ class LLMConfig(BaseSettings):
     openai: OpenAISettings = OpenAISettings()
     azureopenai: AzureOpenAISettings = AzureOpenAISettings()
     anthropic: AnthropicSettings = AnthropicSettings()
-    llama: LlamaSettings = LlamaSettings()
+    ollama: OllamaSettings = OllamaSettings()
