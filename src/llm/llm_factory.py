@@ -119,8 +119,8 @@ class AnthropicProvider(LLMProvider):
         return self.client.messages.create_with_completion(**completion_params)
 
 
-class LlamaProvider(LLMProvider):
-    """Llama provider implementation."""
+class OllamaProvider(LLMProvider):
+    """Ollama provider implementation."""
 
     def __init__(self, settings):
         self.settings = settings
@@ -170,7 +170,7 @@ class LLMFactory:
         providers = {
             "openai": OpenAIProvider,
             "anthropic": AnthropicProvider,
-            "llama": LlamaProvider,
+            "ollama": OllamaProvider,
             "azureopenai": AzureOpenAIProvider,
         }
         provider_class = providers.get(self.provider)
@@ -212,7 +212,7 @@ if __name__ == "__main__":
         message: str
 
     # Initialize the factory with the desired provider
-    provider_name = "llama"  # Change to "anthropic" or "llama" as needed
+    provider_name = "ollama"  # Change to "anthropic" or "ollama" as needed
     factory = LLMFactory(provider=provider_name)
 
     # Define the input messages
