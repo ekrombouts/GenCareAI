@@ -1,3 +1,8 @@
+# Generate nurses notes based on a specific category
+
+# This script generates notes for a specific category of care. The categories are chosen based on a study
+# conducted in a Dutch nursing home. The notes are generated using different LLM models and are saved to a CSV file.
+
 from pathlib import Path
 
 import pandas as pd
