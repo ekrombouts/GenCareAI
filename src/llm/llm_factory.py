@@ -49,6 +49,7 @@ class OpenAIProvider(LLMProvider):
         completion_params = {
             "model": kwargs.get("model", self.settings.default_model),
             "temperature": kwargs.get("temperature", self.settings.temperature),
+            "top_p": kwargs.get("top_p", self.settings.top_p),
             "max_retries": kwargs.get("max_retries", self.settings.max_retries),
             "max_tokens": kwargs.get("max_tokens", self.settings.max_tokens),
             "response_model": response_model,
@@ -79,6 +80,7 @@ class AzureOpenAIProvider(LLMProvider):
         completion_params = {
             "model": kwargs.get("model", self.settings.default_model),
             "temperature": kwargs.get("temperature", self.settings.temperature),
+            "top_p": kwargs.get("top_p", self.settings.top_p),
             "max_retries": kwargs.get("max_retries", self.settings.max_retries),
             "max_tokens": kwargs.get("max_tokens", self.settings.max_tokens),
             "response_model": response_model,
@@ -108,6 +110,7 @@ class AnthropicProvider(LLMProvider):
         completion_params = {
             "model": kwargs.get("model", self.settings.default_model),
             "temperature": kwargs.get("temperature", self.settings.temperature),
+            "top_p": kwargs.get("top_p", self.settings.top_p),
             "max_retries": kwargs.get("max_retries", self.settings.max_retries),
             "max_tokens": kwargs.get("max_tokens", self.settings.max_tokens),
             "response_model": response_model,
@@ -138,6 +141,7 @@ class OllamaProvider(LLMProvider):
         completion_params = {
             "model": kwargs.get("model", self.settings.default_model),
             "temperature": kwargs.get("temperature", self.settings.temperature),
+            "top_p": kwargs.get("top_p", self.settings.top_p),
             "max_retries": kwargs.get("max_retries", self.settings.max_retries),
             "max_tokens": kwargs.get("max_tokens", self.settings.max_tokens),
             "response_model": response_model,

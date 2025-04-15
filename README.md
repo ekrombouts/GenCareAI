@@ -1,20 +1,89 @@
-# GenCareAI
-An initiative to develop AI-driven nursing home care plans using fictional client data.
+# Synthetic Nursing Home Data Generator
+*Eva Rombouts - April 2025*
+*Version 2.0: A complete rewrite with the knowledge I've gained since creating the first version.*
 
-Welcome to the GenCareAI repository. 
-This project is an initial step in exploring how NLP techniques can be used to automate the creation of care plans in nursing homes.
+## Project Overview
 
-**Author:** [Eva Rombouts](https://www.doktereva.nl)
+This project generates synthetic data for nursing home patient records using various Language Learning Models (LLMs). I aimed to have llms create realistic but artificial client profiles, scenarios, and nursing notes.
 
-## Project overview
-**Fictitious Data Creation:** We use OpenAI to create a realistic, yet entirely fictional, dataset of client records. This protects the privacy and upholds the ethical handling of sensitive patient data.
+## Purpose
 
-**LLM Finetuning:** The fictional dataset will be utilized to finetune an open-source Large Language Model (LLM). This process aims to customize the model for enhanced performance on specific tasks within the healthcare sector.
+The generated synthetic data is primarily intended for:
+- Training small language models on nursing home documentation
+- Showcasing NLP applications in nursing home settings
+- Creating realistic but non-sensitive datasets for healthcare NLP experiments
 
-**Future Application to Real Data:** After the initial finetuning with fictitious data, we plan to adapt the model locally with actual client data, aiming to produce personalized care plans.
+## Project Structure
 
-## Goal of GenCareAI
-GenCareAI aims to assist healthcare professionals in nursing homes by creating AI-driven tools that help reduce administrative tasks while maintaining the privacy and security of patient data.
+The project consists of several Python scripts that execute in sequence:
 
-## Collaboration
-I welcome any expert advice or insights that could help the development of this project. Since my expertise is not primarily technical, please ensure communications are clear and understandable, using minimal technical jargon.
+1. `01save_llm_model_details.py` - Configures and saves LLM model details
+2. `02generate_profiles.py` - Generates client profiles using the configured LLMs
+3. `03generate_scenarios.py` - Creates scenarios for each client profile 
+4. `04generate_records.py` - Generates detailed nursing records based on the scenarios
+5. `05combine_data.py` - Combines data from different models into a unified dataset
+6. `06category_notes.py` - Generates example notes based on common nursing home topics, not linked to specific client profiles or scenarios.
+
+## Usage
+
+1. Configure LLM credentials in the .env file (.envexample is provided)
+2. Check `src\config\llm_config.py` and make adjustments as desired
+3. Make sure to add the src folder to your Python path.
+4. Run scripts in sequence (01 through 05)
+5. Access the generated data in the `/data` directory
+
+## Configuration
+
+The project uses multiple LLM models for data generation:
+- OpenAI (in my setting accessed via Azure): GPT-4o-mini and GPT-4o
+- Anthropic: Claude-3-5-Sonnet
+- Ollama: Phi4
+
+Each model generates data for a specific "ward" in the simulated nursing home, using either somatic or psychogeriatric ward names.
+
+## Technical Components
+
+### LLM Factory
+The project uses a factory pattern to manage different LLM providers (OpenAI, Anthropic, Ollama, Azure OpenAI) with a unified interface.
+
+### Response Models
+Pydantic models are used to structure the output from LLMs:
+- `ClientProfile` - Structure for client profiles
+- `ClientScenario` - Structure for weekly scenarios
+- `NursesNote` - Structure for nursing records
+- `Note` - Structure for categorized notes
+
+### Template Engine
+Jinja2 templates are used to construct prompts for the LLM models.
+
+## Requirements
+
+The project requires:
+- Python 3.8+
+- Pandas for data manipulation
+- Jinja2 for templating
+- LLM client libraries (OpenAI, Anthropic, etc.)
+- Instructor library for structuring LLM outputs with Pydantic
+- Access to LLM API endpoints with valid credentials
+
+## Output
+
+The project generates several CSV files:
+- `llm_models.csv` - Configuration of LLM models
+- `profiles_<model>.csv` - Client profiles for each model
+- `scenarios_<model>.csv` - Weekly scenarios for each model
+- `records_<model>.csv` - Nursing records for each model
+- `profiles.csv`, `scenarios.csv`, `records.csv` - Combined datasets
+- `notes.csv` - Categorized nursing notes
+
+
+## Notes
+
+- The project generates data in Dutch language
+- Real patient data is never used; all content is synthetically generated
+- The complication library includes realistic events like weight loss, falls, and infections
+- Data generation includes randomization for start dates, duration of care, and complications
+
+## License
+
+Please share freely!

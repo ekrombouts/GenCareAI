@@ -5,8 +5,10 @@ from pydantic import BaseModel, Field
 
 
 class NursesNote(BaseModel):
-    date: datetime = Field(description="Datum en tijd van de rapportage")
-    note: str = Field(description="Inhoud zorgrapportage")
+    date: datetime = Field(
+        description="Datum en tijdstip waarop de rapportage is geschreven"
+    )
+    note: str = Field(description="Inhoud van de rapportage")
 
 
 class ClientRecord(BaseModel):

@@ -5,11 +5,17 @@ from pydantic import BaseModel, Field
 
 # Define a Pydantic model for a single client profile
 class ClientProfile(BaseModel):
-    naam: str = Field(
-        description="naam van de client (Meneer/Mevrouw Voornaam Achternaam, gebruik een naam die je normaal niet zou kiezen)"
-    )  # Name of the client
+    geslacht: str = Field(
+        description="geslacht van de client (m/v)"
+    )  # Gender of the client
+    voornaam: str = Field(
+        description="voornaam van de client (gebruik een naam die je normaal niet zou kiezen)"
+    )  # First name of the client
+    achternaam: str = Field(
+        description="achternaam van de client (gebruik een naam die je normaal niet zou kiezen)"
+    )  # Last name of the client
     diagnose: str = Field(
-        description="hoofddiagnose voor opname in het verlpleeghuis"
+        description="hoofddiagnose voor opname in het verpleeghuis"
     )  # Diagnosis
     somatiek: str = Field(description="lichamelijke klachten")  # Physical complaints
     adl: str = Field(

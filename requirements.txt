@@ -5,8 +5,6 @@ pandas
 anthropic
 openai
 
-pydantic_settings
-
 pydantic
 pydantic_settings
 instructor

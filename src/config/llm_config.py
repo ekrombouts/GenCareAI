@@ -14,7 +14,9 @@ Configuration for LLM providers.
 class LLMProviderSettings(BaseSettings):
     """Base settings for LLM providers."""
 
-    temperature: float = 0.9
+    # Aiming for controlled creativity
+    temperature: float = 1.0
+    top_p: float = 0.7
     max_tokens: Optional[int] = None
     max_retries: int = 3
 
@@ -24,7 +26,6 @@ class OpenAISettings(LLMProviderSettings):
 
     api_key: str = os.getenv("OPENAI_API_KEY")
     default_model: str = "gpt-4o-mini-2024-07-18"
-    embedding_model: str = "text-embedding-3-small"
 
 
 class AzureOpenAISettings(LLMProviderSettings):
@@ -32,7 +33,6 @@ class AzureOpenAISettings(LLMProviderSettings):
 
     api_key: str = os.getenv("AZURE_OPENAI_API_KEY")
     default_model: str = "gpt-4o-mini"
-    embedding_model: str = "text-embedding-3-small"
     api_version: str = "2024-02-01"
     azure_endpoint: str = os.getenv("AZURE_OPENAI_ENDPOINT")
 
