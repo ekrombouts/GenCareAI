@@ -173,3 +173,5 @@ logs/
 models/
 results/
 GenCareAI.code-workspace
+zzz/
+scripts/draft.py
